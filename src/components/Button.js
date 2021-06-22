@@ -15,5 +15,7 @@ const StyledButton = styled.button`
     color: #fff;
     font-size: 20px;
     font-family: 'Raleway', sans-serif;
+    font-weight: 700;
     margin-top: 10px;
+    margin-bottom: 35px;
 `

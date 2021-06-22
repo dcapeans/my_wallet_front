@@ -4,18 +4,20 @@ import Input from "./Input"
 import Title from "./Title"
 import { Link } from 'react-router-dom'
 
-export default function Login(){
+export default function SignUp(){
     return(
         <>
         <Title />
         <Container>
             <form>
+                <Input placeholder="Nome" />
                 <Input placeholder="E-mail" />
                 <Input placeholder="Senha" />
+                <Input placeholder="Confirme a senha" />
                 <Button text={"Entrar"}/>
             </form>
-            <Link to="/signUp">
-                <StyledLink>Primeira vez? Cadastre-se!</StyledLink>
+            <Link to="/">
+                <StyledLink>Já tem uma conta? Entre agora!</StyledLink>
             </Link>
         </Container>
         </>
@@ -41,4 +43,3 @@ const StyledLink = styled.a`
     line-height: 17px;
     text-align: center;
 `
-
