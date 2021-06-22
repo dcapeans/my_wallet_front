@@ -4,6 +4,7 @@ import Login from './Login'
 import SignUp from './SignUp'
 import GlobalStyle from '../styles/GlobalStyles'
 import Home from './Home'
+import NewRegister from './NewRegister'
 
 export default function App() {
     return (
@@ -20,10 +21,10 @@ export default function App() {
                     <Home />
                 </Route>
                 <Route path="/income" exact>
-                    
+                    <NewRegister head="Nova entrada" buttonText="Salvar entrada"/>
                 </Route>
                 <Route path="/outflow" exact>
-                    
+                    <NewRegister head="Nova saída" buttonText="Salvar saída"/>
                 </Route>
             </Switch>
         </BrowserRouter>  
