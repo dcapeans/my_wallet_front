@@ -6,9 +6,8 @@ import { Link } from 'react-router-dom'
 
 export default function SignUp(){
     return(
-        <>
-        <Title />
         <Container>
+        <Title />
             <form>
                 <Input placeholder="Nome" />
                 <Input placeholder="E-mail" />
@@ -20,15 +19,16 @@ export default function SignUp(){
                 <StyledLink>Já tem uma conta? Entre agora!</StyledLink>
             </Link>
         </Container>
-        </>
     )
 }
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-
+    height: 100vh;
     form{
         display: flex;
         flex-direction: column;

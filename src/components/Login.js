@@ -6,9 +6,8 @@ import { Link } from 'react-router-dom'
 
 export default function Login(){
     return(
-        <>
-        <Title />
         <Container>
+            <Title />
             <form>
                 <Input placeholder="E-mail" />
                 <Input placeholder="Senha" />
@@ -18,14 +17,16 @@ export default function Login(){
                 <StyledLink>Primeira vez? Cadastre-se!</StyledLink>
             </Link>
         </Container>
-        </>
     )
 }
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    height: 100vh;
 
     form{
         display: flex;
