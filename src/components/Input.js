@@ -1,8 +1,8 @@
 import styled from "styled-components"
 
-export default function Input({placeholder}){
+export default function Input({placeholder, type, setState, isLoading}){
     return (
-        <StyledInput placeholder={placeholder}/>
+        <StyledInput placeholder={placeholder} type={type} required onChange={setState} disabled={isLoading}/>
     )
 }
 
@@ -14,12 +14,15 @@ const StyledInput = styled.input`
     background-color: #fff;
     border-style: none;
     padding-left: 15px;
+    font-size: 18px;
 
-    ::placeholder{
+    &::placeholder{
         color: #000;
         font-family: 'Raleway', sans-serif;
         font-size: 20px;
-
+    }
+    &:focus{
+        outline: none;
     }
 
 `

@@ -1,8 +1,8 @@
 import styled from "styled-components"
 
-export default function Button({text}){
+export default function Button({text, isLoading, type}){
     return(
-        <StyledButton>{text}</StyledButton>
+        <StyledButton disabled={isLoading} type={type}>{text}</StyledButton>
     )
 }
 
