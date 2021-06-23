@@ -2,13 +2,40 @@ import styled from "styled-components"
 import Button from "./Button"
 import Input from "./Input"
 import Title from "./Title"
-import { Link } from 'react-router-dom'
-import { useState } from "react"
+import { Link, useHistory } from 'react-router-dom'
+import { useState, useContext } from "react"
+import axios from "axios"
+import UserContext from '../contexts/UserContext'
+
 
 export default function Login(){
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [isLoading, setIsLoading] = useState(false)
+    const { setUser } = useContext(UserContext)
+    let history = useHistory()
+
+    if(localStorage.getItem("user")){
+        setUser(JSON.parse(localStorage.getItem("user")))
+        history.push("/home")
+    }
+
+    const signIn = (e) => {
+        e.preventDefault()
+        const body = { email, password}
+
+        setIsLoading(true)
+        axios.post("http://localhost:4000/sign-in", body)
+        .then(() => {
+            setUser(res.data)
+            localStorage.setItem( "user", JSON.stringify(res.data))
+            setIsLoading(false)
+            history.push("/home")
+        })
+        .catch(() => {
+            setIsLoading(false)
+        })
+    }
 
     return(
         <Container>
