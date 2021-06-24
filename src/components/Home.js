@@ -1,23 +1,63 @@
 import styled from "styled-components"
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { BsPlusCircle, BsDashCircle } from "react-icons/bs";
+import { useCallback, useContext, useEffect, useState } from "react";
+import UserContext from "../contexts/UserContext";
+import axios from "axios";
+import { useHistory } from "react-router";
+import Transaction from "./Transaction";
 
 export default function Home(){
+    const [transactions, setTransactions] = useState([])
+    const { user } = useContext(UserContext)
+    let history = useHistory()
+
+    const fetchTransactions = useCallback(() => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+
+        axios.get("http://localhost:4000/transactions", config)
+        .then((res) => {
+            setTransactions(res.data)
+        })
+        .catch((err) => {
+            alert("Ocorreu um erro. Tente novamente")
+        })
+    }, [user.token])
+
+    useEffect(() => {
+       fetchTransactions()
+    }, [fetchTransactions])
+
+    const logout = () => {
+        localStorage.clear()
+        // END SESSION ROUTE
+        history.push("/")
+    }
+
     return(
         <Container>
             <Header>
-                <h2>Olá, Fulano</h2>
-                <RiLogoutBoxRLine className="logout_icon"/>
+                <h2>Olá, {user.name}</h2>
+                <RiLogoutBoxRLine className="logout_icon" onClick={logout}/>
             </Header>
             <Content>
-                <p>Não há registros de entrada ou saída</p>
+            {transactions.length > 0 
+                ? transactions.map((transaction, i) => (
+                    <Transaction key={i} transaction={transaction}/>
+                ))
+                : <p>Não há registros de entrada ou saída</p>
+            }  
             </Content>
             <ButtonsContainer>
-                <NewRegisterButton>
+                <NewRegisterButton onClick={() =>{history.push("/newIncome")}}>
                     <BsPlusCircle className="newRegisterIcon"/>
                     <p>Nova entrada</p>
                 </NewRegisterButton>
-                <NewRegisterButton>
+                <NewRegisterButton onClick={() =>{history.push("/newOutflow")}}>
                     <BsDashCircle className="newRegisterIcon"/>
                     <p>Nova saída</p>
                 </NewRegisterButton>
@@ -32,7 +72,7 @@ const Container = styled.div`
     justify-content: space-evenly;
     align-items: center;
     width: 90%;
-    margin: 0 auto;
+    margin: 25px auto 0 auto;
     font-family:'Raleway', sans-serif;
 `
 
@@ -56,9 +96,10 @@ const Header = styled.div`
 const Content = styled.div`
     background-color: #fff;
     color: #000;
+    width: 100%;
     height: 446px;
     border-radius: 5px;
-    padding: 10px;
+    padding: 15px;
     p {
         position: relative;
         top: 45%;

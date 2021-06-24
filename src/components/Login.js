@@ -26,13 +26,15 @@ export default function Login(){
 
         setIsLoading(true)
         axios.post("http://localhost:4000/sign-in", body)
-        .then(() => {
+        .then((res) => {
+            console.log(res)
             setUser(res.data)
             localStorage.setItem( "user", JSON.stringify(res.data))
             setIsLoading(false)
             history.push("/home")
         })
         .catch(() => {
+            alert("Ocorreu um erro. Tente novamente")
             setIsLoading(false)
         })
     }
@@ -66,7 +68,9 @@ const Container = styled.div`
     }
 `
 
-const StyledLink = styled.a`
+const StyledLink = styled.button`
+    background-color: transparent;
+    border-style: none;
     font-family: 'Raleway', sans-serif;
     font-weight: 700;
     font-size: 15px;

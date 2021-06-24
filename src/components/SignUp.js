@@ -69,7 +69,9 @@ const Container = styled.div`
     }
 `
 
-const StyledLink = styled.a`
+const StyledLink = styled.button`
+    background-color: transparent;
+    border-style: none;
     font-family: 'Raleway', sans-serif;
     font-weight: 700;
     font-size: 15px;

@@ -1,36 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Login from './Login'
 import SignUp from './SignUp'
 import GlobalStyle from '../styles/GlobalStyles'
 import Home from './Home'
-import NewRegister from './NewRegister'
+import NewOutflow from './NewOutflow'
+import NewIncome from './NewIncome'
 import UserContext from '../contexts/UserContext'
+import PrivateRoute from './PrivateRoute'
 
 export default function App() {
-    const [user, setUser] = useState(null)
+    const initialUserState = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
 
+    const [user, setUser] = useState(initialUserState)
+    
     return (
         <BrowserRouter>
             <GlobalStyle />
             <Switch>
-                <UserContext.provider value={{user, setUser}}>
+                <UserContext.Provider value={{user, setUser}}>
                     <Route path="/" exact>
                         <Login />
                     </Route>
                     <Route path="/signUp" exact>
                         <SignUp />
                     </Route>
-                    <Route path="/home" exact>
-                        <Home />
-                    </Route>
-                    <Route path="/income" exact>
-                        <NewRegister head="Nova entrada" buttonText="Salvar entrada"/>
-                    </Route>
-                    <Route path="/outflow" exact>
-                        <NewRegister head="Nova saída" buttonText="Salvar saída"/>
-                    </Route>
-                </UserContext.provider>
+                    <PrivateRoute path={"/home"} component={Home} />
+                    <PrivateRoute path={"/newIncome"} component={NewIncome} />
+                    <PrivateRoute path={"/newOutflow"} component={NewOutflow} />
+                </UserContext.Provider>
             </Switch>
         </BrowserRouter>  
     )
