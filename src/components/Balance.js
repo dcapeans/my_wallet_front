@@ -19,7 +19,6 @@ const Container = styled.div`
     align-items: center;
     position: sticky;
     bottom: 0;
-    left: 0;
     width: 100%;
     padding: 0 15px;
     height: 40px;
