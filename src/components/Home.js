@@ -28,11 +28,11 @@ export default function Home(){
         .catch((err) => {
             alert("Ocorreu um erro. Tente novamente")
         })
-    }, [])
+    }, [user.token])
 
     useEffect(() => {
        fetchTransactions()
-    }, [])
+    }, [fetchTransactions])
 
     const logout = () => {
         const config = {
@@ -49,7 +49,6 @@ export default function Home(){
             alert("Ocorreu um erro. Tente novamente")
         }) 
     }
-
 
     return(
         <Container>

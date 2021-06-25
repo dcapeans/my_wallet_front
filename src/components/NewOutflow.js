@@ -6,13 +6,14 @@ import UserContext from "../contexts/UserContext"
 import Button from "./Button"
 import Input from "./Input"
 
-export default function NewRegister(){
+export default function NewOutflow(){
     const [value, setValue] = useState("")
     const [description, setDescription] = useState("")
     const { user } = useContext(UserContext)
     let history = useHistory()
 
-    const saveNewOutflow = () => {
+    const saveNewOutflow = (e) => {
+        e.preventDefault()
         const body = {
             value, 
             description
@@ -25,17 +26,11 @@ export default function NewRegister(){
 
         axios.post("http://localhost:4000/newOutflow", body, config)
         .then((res) =>{
-            resetInputs()
+            goHome()
         })
         .catch((err) => {
             alert("Ocorreu um erro. Tente novamente")
         })
-        goHome()
-    }
-
-    const resetInputs = () => {
-        setValue("")
-        setDescription("")
     }
 
     const goHome = () => {
