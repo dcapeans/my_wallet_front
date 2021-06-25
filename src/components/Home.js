@@ -18,7 +18,6 @@ export default function Home(){
                 Authorization: `Bearer ${user.token}`
             }
         }
-
         axios.get("http://localhost:4000/transactions", config)
         .then((res) => {
             setTransactions(res.data)
@@ -26,17 +25,28 @@ export default function Home(){
         .catch((err) => {
             alert("Ocorreu um erro. Tente novamente")
         })
-    }, [user.token])
+    }, [])
 
     useEffect(() => {
        fetchTransactions()
-    }, [fetchTransactions])
+    })
 
     const logout = () => {
-        localStorage.clear()
-        // END SESSION ROUTE
-        history.push("/")
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+        axios.post("http://localhost:4000/logout", config)
+        .then((res) => {
+            localStorage.clear()
+            history.push("/")
+        })
+        .catch((err) => {
+            alert("Ocorreu um erro. Tente novamente")
+        }) 
     }
+
 
     return(
         <Container>
@@ -100,6 +110,7 @@ const Content = styled.div`
     height: 446px;
     border-radius: 5px;
     padding: 15px;
+    overflow-y: scroll;
     p {
         position: relative;
         top: 45%;

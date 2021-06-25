@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useContext, useState } from "react"
-import { useHistory } from "react-router"
+import { useHistory } from "react-router-dom"
 import styled from "styled-components"
 import UserContext from "../contexts/UserContext"
 import Button from "./Button"
@@ -19,18 +19,18 @@ export default function NewRegister(){
         }
         const config = {
             headers: {
-                Authorization: `Bearer ${user}`
+                Authorization: `Bearer ${user.token}`
             }
         }
 
         axios.post("http://localhost:4000/newIncome", body, config)
         .then((res) =>{
             resetInputs()
-            history.push("/home")
         })
         .catch((err) => {
             alert("Ocorreu um erro. Tente novamente")
         })
+        goHome()
     }
 
     const resetInputs = () => {
