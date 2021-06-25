@@ -6,9 +6,11 @@ import UserContext from "../contexts/UserContext";
 import axios from "axios";
 import { useHistory } from "react-router";
 import Transaction from "./Transaction";
+import Balance from './Balance'
 
 export default function Home(){
     const [transactions, setTransactions] = useState([])
+    const [balance, setBalance] = useState("")
     const { user } = useContext(UserContext)
     let history = useHistory()
 
@@ -20,7 +22,8 @@ export default function Home(){
         }
         axios.get("http://localhost:4000/transactions", config)
         .then((res) => {
-            setTransactions(res.data)
+            setBalance(res.data.balanceTotal)
+            setTransactions(res.data.transactions)
         })
         .catch((err) => {
             alert("Ocorreu um erro. Tente novamente")
@@ -29,7 +32,7 @@ export default function Home(){
 
     useEffect(() => {
        fetchTransactions()
-    })
+    }, [])
 
     const logout = () => {
         const config = {
@@ -60,7 +63,11 @@ export default function Home(){
                     <Transaction key={i} transaction={transaction}/>
                 ))
                 : <p>Não há registros de entrada ou saída</p>
-            }  
+            } 
+            {transactions.length > 0
+                ? <Balance balance={balance}/>
+                : <span></span>
+            } 
             </Content>
             <ButtonsContainer>
                 <NewRegisterButton onClick={() =>{history.push("/newIncome")}}>
@@ -104,12 +111,13 @@ const Header = styled.div`
 `
 
 const Content = styled.div`
+    position: relative;
     background-color: #fff;
     color: #000;
     width: 100%;
     height: 446px;
     border-radius: 5px;
-    padding: 15px;
+    padding: 15px 15px 0 15px;
     overflow-y: scroll;
     p {
         position: relative;
