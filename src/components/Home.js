@@ -35,12 +35,13 @@ export default function Home(){
     }, [fetchTransactions])
 
     const logout = () => {
+        console.log(user)
         const config = {
             headers: {
                 Authorization: `Bearer ${user.token}`
             }
         }
-        axios.post("http://localhost:4000/logout", config)
+        axios.post("http://localhost:4000/logout", {}, config)
         .then((res) => {
             localStorage.clear()
             history.push("/")
