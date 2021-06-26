@@ -27,7 +27,6 @@ export default function Login(){
         setIsLoading(true)
         axios.post("http://localhost:4000/sign-in", body)
         .then((res) => {
-            console.log(res)
             setUser(res.data)
             localStorage.setItem( "user", JSON.stringify(res.data))
             setIsLoading(false)

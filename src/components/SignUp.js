@@ -32,7 +32,6 @@ export default function SignUp(){
             history.push("/")
         })
         .catch((err) => {
-            console.log(err)
             alert("Ocorreu um erro ao se cadastrar. Tente novamente")
             setIsLoading(false)
         })

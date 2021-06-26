@@ -35,7 +35,6 @@ export default function Home(){
     }, [fetchTransactions])
 
     const logout = () => {
-        console.log(user)
         const config = {
             headers: {
                 Authorization: `Bearer ${user.token}`
